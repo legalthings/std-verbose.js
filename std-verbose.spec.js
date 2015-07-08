@@ -53,7 +53,82 @@ describe('verbose', function() {
       verbose(message, verbose.INFO);
       expect(streamMock.capturedData).toEqual(expected);
     });
-  });  
+  });
+  
+  describe('a number', function() {
+    it('works with an integer', function () {
+      verbose(173, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + '173\n');
+    });
+    
+    it('works with a float', function () {
+      verbose(3.52, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + '3.52\n');
+    });
+  });
+  
+  describe('a boolean', function() {
+    it('works with false', function () {
+      verbose(false, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + 'false\n');
+    });
+    
+    it('works with true', function () {
+      verbose(true, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + 'true\n');
+    });
+  });
+  
+  describe('an array', function() {
+    it('works', function () {
+      var list = [
+        'faucibus',
+        'orci',
+        'luctus'
+      ];
+
+      var expected = 'INFO '.blue + '- faucibus\n' +
+        'INFO '.blue + '- orci\n' +
+        'INFO '.blue + '- luctus\n';
+
+      verbose(list, verbose.INFO);
+      expect(streamMock.capturedData).toEqual(expected);
+    });
+  });
+  
+  describe('undefined', function() {
+    it('works', function () {
+      verbose(undefined, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + '[undefined]\n');
+    });
+  });
+  
+  describe('a function', function() {
+    it('works with an empty function', function () {
+      verbose(function () { }, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + 'function () { }\n');
+    });
+    
+    it('works with a bigger function', function () {
+      var fn = function () {
+        var a = "A";
+      };
+      
+      var expected = 'INFO '.blue + 'function () {\n' +
+        'INFO '.blue + '        var a = "A";\n' +
+        'INFO '.blue + '      }\n';
+      
+      verbose(fn, verbose.INFO);
+      expect(streamMock.capturedData).toEqual(expected);
+    });
+  });
+  
+  describe('a regex', function() {
+    it('works', function () {
+      verbose(/^abc\w\d.*/, verbose.INFO);
+      expect(streamMock.capturedData).toEqual('INFO '.blue + '/^abc\\w\\d.*/\n');
+    });
+  });
   
   describe('an object', function () {
     it('works', function () {
@@ -75,6 +150,29 @@ describe('verbose', function() {
         'INFO '.blue + '  - faucibus\n' +
         'INFO '.blue + '  - orci\n' +
         'INFO '.blue + '  - luctus\n';
+
+      verbose(object, verbose.INFO);
+      expect(streamMock.capturedData).toEqual(expected);
+    });
+    
+    it('works for undefined, function and regex properties', function () {
+      var object = {
+        abc: 'vestibulum',
+        def: undefined,
+        ghi: function() { },
+        jkl: function() {
+          var a = "A";
+        },
+        mno: /abc/
+      };
+
+      var expected = 'INFO '.blue + 'abc: vestibulum\n' +
+        'INFO '.blue + 'def: [undefined]\n' +
+        'INFO '.blue + 'ghi: function () { }\n' +
+        'INFO '.blue + 'jkl:   function () {\n' +
+        'INFO '.blue + '            var a = "A";\n' +
+        'INFO '.blue + '          }\n' +
+        'INFO '.blue + 'mno: /abc/\n';
 
       verbose(object, verbose.INFO);
       expect(streamMock.capturedData).toEqual(expected);
