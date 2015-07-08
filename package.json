@@ -1,0 +1,26 @@
+{
+  "name": "std-verbose",
+  "version": "0.1.0",
+  "author": "Legal Things <info@legalthings.net>", 
+  "contributors": [
+    "Arnold Daniels <arnold@jasny.net>",
+    "Tristan van Vaalen <tvvaalen@gmail.com>"
+  ],
+  "description": "verbose output with colored prefix",
+  "main": "./std-verbose.js",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/legalthings/std-verbose.js.git"
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "devDependencies": {
+    "mock-utf8-stream": "^0.1.1"
+  },
+  "dependencies": {
+    "colors": "^1.1.2"
+  }
+}
