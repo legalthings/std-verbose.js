@@ -16,6 +16,8 @@ Output a string or an object. Objects are serialized to yaml.
 ## Usage
 
 ```js
+var verbose = require('std-verbose');
+
 verbose.minLevel = verbose.DEBUG;
 
 verbose('Starting to wax the moon', verbose.INFO);
@@ -30,6 +32,16 @@ verbose('Response data doesn\'t contain expected key \'xyz\'', verbose.WARN);
 verbose('Unable to continue, skipping this one', verbose.ERROR);
 ```
 
+## API
+
+```js
+verbose(message, level, prefix);
+```
+
+* `message` string (required)
+* `level` enum (optional), defaults to DEBUG.
+* `prefix` string (optional), defaults to `''`.
+
 ## Levels
 
 There are 4 levels (from lowest to hightest):
@@ -39,7 +51,7 @@ There are 4 levels (from lowest to hightest):
 * WARN
 * ERROR
 
-All messages with a level below `verbose.minLevel` will not be outputted. Defaults to `INFO`.
+All messages with a level below `verbose.minLevel` will not be outputted. Defaults to INFO.
 
 ## Stream selection
 
