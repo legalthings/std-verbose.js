@@ -1,7 +1,7 @@
 {
   "name": "std-verbose",
   "version": "0.1.0",
-  "author": "Legal Things <info@legalthings.net>", 
+  "author": "Legal Things <info@legalthings.net>",
   "contributors": [
     "Arnold Daniels <arnold@jasny.net>",
     "Tristan van Vaalen <tvvaalen@gmail.com>"
@@ -21,6 +21,7 @@
     "mock-utf8-stream": "^0.1.1"
   },
   "dependencies": {
-    "colors": "^1.1.2"
+    "colors": "^1.1.2",
+    "js-yaml": "^3.3.1"
   }
 }
