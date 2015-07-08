@@ -11,11 +11,8 @@ var verbose = function(subject, level, prefix) {
   
   if (level < verbose.minLevel) return;
   
+  var message = cast(subject);
   var status = '';
-  
-  if (typeof subject == 'object') {
-    subject = yaml.safeDump(subject).replace(/\n$/, '');
-  }
 
   switch(level) {
     case verbose.DEBUG:
@@ -32,7 +29,18 @@ var verbose = function(subject, level, prefix) {
       break;
   }
 
-  verbose.stream.write(subject.replace(/(^|\n)/g, '$1' + status + prefix) + '\n');
+  verbose.stream.write(message.replace(/(^|\n)/g, '$1' + status + prefix) + '\n');
+}
+
+function cast(subject) {
+  if (typeof subject !== 'object') return subject;
+  
+  if (typeof subject.inspect === 'function') {
+    subject = cast(subject.inspect(0));
+    if (typeof subject !== 'object') return subject;
+  }
+  
+  return yaml.safeDump(subject).replace(/\n$/, '');
 }
 
 verbose.DEBUG = 0;
