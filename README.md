@@ -53,6 +53,8 @@ There are 4 levels (from lowest to hightest):
 
 All messages with a level below `verbose.minLevel` will not be outputted. Defaults to INFO.
 
+The minimum level may also be set through environment variable `VERBOSITY`.
+
 ## Stream selection
 
 By default messages are written to stderr. To write to another writable stream set `verbose.stream`.

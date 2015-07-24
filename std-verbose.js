@@ -60,8 +60,10 @@ verbose.WARN = 2;
 verbose.ERROR = 3;
 
 // Defaults
-verbose.minLevel = verbose.WARN;
 verbose.stream = process.stderr;
+verbose.minLevel = typeof verbose[process.env.VERBOSITY] !== 'undefined'
+  ? verbose[process.env.VERBOSITY]
+  : verbose.INFO;
 
 module.exports = verbose;
 
