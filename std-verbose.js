@@ -1,6 +1,6 @@
 "use strict"
 
-/* Verbose printing */
+/* Verbose printing to stream (stderr) */
 
 require('colors');
 var yaml = require('js-yaml');
@@ -54,6 +54,24 @@ function cast(subject) {
     });
 }
 
+// Level methods
+verbose.debug = function(subject, prefix) {
+  verbose(subject, verbose.DEBUG, prefix);
+};
+
+verbose.info = function(subject, prefix) {
+  verbose(subject, verbose.INFO, prefix);
+};
+
+verbose.warn = function(subject, prefix) {
+  verbose(subject, verbose.WARN, prefix);
+};
+
+verbose.error = function(subject, prefix) {
+  verbose(subject, verbose.ERROR, prefix);
+};
+
+// Levels
 verbose.DEBUG = 0;
 verbose.INFO = 1;
 verbose.WARN = 2;

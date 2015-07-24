@@ -297,5 +297,27 @@ describe('verbose', function() {
       expect(streamMock.capturedData).toEqual(expected);
     });    
   });
+  
+  describe('using level methods', function() {
+    it('works for DEBUG', function () {
+      verbose.debug('Lorem ipsum dolor sit amet');
+      expect(streamMock.capturedData).toEqual('DEBG '.green + 'Lorem ipsum dolor sit amet\n');
+    });
+    
+    it('works for INFO', function () {
+      verbose.info('Mauris tincidunt sapien vitae');
+      expect(streamMock.capturedData).toEqual('INFO '.blue + 'Mauris tincidunt sapien vitae\n');
+    });
+    
+    it('works for WARN', function () {
+      verbose.warn('Suspendisse a augue posuere');
+      expect(streamMock.capturedData).toEqual('WARN '.yellow + 'Suspendisse a augue posuere\n');
+    });
+    
+    it('works for ERROR', function () {
+      verbose.error('Pellentesque venenatis augue');
+      expect(streamMock.capturedData).toEqual('ERR! '.red + 'Pellentesque venenatis augue\n');
+    });
+  });
 });
 

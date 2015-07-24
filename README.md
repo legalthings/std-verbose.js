@@ -55,6 +55,19 @@ All messages with a level below `verbose.minLevel` will not be outputted. Defaul
 
 The minimum level may also be set through environment variable `VERBOSITY`.
 
+## Level methods
+
+Alternatively you can call a method to output a message for a specific verbosity level.
+
+```ja
+verbose.debug('Received a request:');
+verbose.debug({target: 'http://example.com', data: {first: 1, second: 'two', third: 'III'}}, '  ');
+
+verbose.info('Starting to wax the moon');
+verbose.warn('This might take longer than expected');
+verbose.error('Something has gone wrong aborting');
+```
+
 ## Stream selection
 
 By default messages are written to stderr. To write to another writable stream set `verbose.stream`.
