@@ -27,6 +27,9 @@ var verbose = function(subject, level, prefix) {
     case verbose.ERROR:
       status = 'ERR! '.red;
       break;
+    case verbose.CRITICAL:
+      status = 'CRIT '.red;
+      break;
   }
 
   verbose.stream.write(message.replace(/(^|\n)/g, '$1' + status + prefix) + '\n');
@@ -71,11 +74,16 @@ verbose.error = function(subject, prefix) {
   verbose(subject, verbose.ERROR, prefix);
 };
 
+verbose.critical = function(subject, prefix) {
+  verbose(subject, verbose.CRITICAL, prefix);
+};
+
 // Levels
 verbose.DEBUG = 0;
 verbose.INFO = 1;
 verbose.WARN = 2;
 verbose.ERROR = 3;
+verbose.CRITICAL = 4;
 
 // Defaults
 verbose.stream = process.stderr;
