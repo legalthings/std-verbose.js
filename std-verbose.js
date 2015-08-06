@@ -3,7 +3,7 @@
 /* Verbose printing to stream (stderr) */
 
 require('colors');
-var yaml = require('js-yaml');
+var cast = require('./cast');
 
 var verbose = function(subject, level, prefix) {
   if (typeof level === 'undefined') level = verbose.INFO;
@@ -33,28 +33,6 @@ var verbose = function(subject, level, prefix) {
   }
 
   verbose.stream.write(message.replace(/(^|\n)/g, '$1' + status + prefix) + '\n');
-}
-
-function cast(subject) {
-  if (typeof subject === 'string') return subject;
-  if (typeof subject === 'number') return subject + '';
-
-  if (typeof subject === 'undefined') return '[undefined]';
-    
-  if (typeof subject.inspect === 'function') {
-    subject = cast(subject.inspect(0));
-    if (typeof subject === 'string') return subject;
-    if (typeof subject === 'number') return subject + '';
-  }
-  
-  return yaml.dump(subject)
-    .replace(/\n$/, '')
-    .replace(/\!<tag:yaml.org,2002:js\/undefined> ''/g, '[undefined]')
-    .replace(/\!<tag:yaml.org,2002:js\/function> '(.+\})'(\n|$)/g, '$1$2')
-    .replace(/\!<tag:yaml.org,2002:js\/function> \|\-(\n|$)/g, '')
-    .replace(/\!<tag:yaml.org,2002:js\/regexp> (?:(['"])(.*)\1(\n|$))?/g, function(full, quote, expr, newline) {
-      return expr ? expr.replace(/\\\\/g, '\\') + newline : '';
-    });
 }
 
 // Level methods
