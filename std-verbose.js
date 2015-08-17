@@ -65,8 +65,10 @@ verbose.CRITICAL = 4;
 
 // Defaults
 verbose.stream = process.stderr;
-verbose.minLevel = typeof verbose[process.env.VERBOSITY] !== 'undefined'
-  ? verbose[process.env.VERBOSITY]
+
+var defaultLevel = process.env.VERBOSITY ? process.env.VERBOSITY.toUpperCase() : null;
+verbose.minLevel = defaultLevel && typeof verbose[defaultLevel] !== 'undefined'
+  ? verbose[defaultLevel]
   : verbose.INFO;
 
 module.exports = verbose;
